@@ -33,6 +33,8 @@ module.exports = {
 
         if (!queue.connection) await queue.connect(message.member.voice.channel)
         await queue.play(track)
+        .then(() =>     queue.metadata.message.channel.send(`La musique ${track.title} est lancée !`)
+        )
         message.followUp(`La musique ${track.title} a été ajoué à la file d'attente avec succès !`)
     }
 }
