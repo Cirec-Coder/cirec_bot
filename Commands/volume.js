@@ -19,7 +19,6 @@ module.exports = {
 
     async run(bot, message, args) {
         let vol = args.getNumber("volume");
-        console.log(vol);
 
         const queue = await bot.player.nodes.get(message.guild);
         if (!queue) {
@@ -27,6 +26,9 @@ module.exports = {
                 "Le bot n'est pas connecté à un salon vocal !"
             );
         }
+
+        if(vol > 100) return message.reply("Le volume ne peut pas être supérieur à 100 !");
+        if(vol < 0) return message.reply("Le volume ne peut pas être inférieur à 0 !");
 
         queue.node.setVolume(vol);
         message.reply(
