@@ -7,6 +7,7 @@ const intents = new Discord.IntentsBitField(3276799);
 const bot = new Discord.Client({ intents });
 const loadCommands = require('../Loaders/loadCommands');
 const loadEvents = require('../Loaders/loadEvents');
+const loadPlayerEvents = require('../Loaders/loadPlayerEvents');
 
 bot.player = new Player.Player(bot, {
     leaveOnEnd: true,
@@ -16,7 +17,7 @@ bot.player = new Player.Player(bot, {
         filter: "audioonly",
         quality: "highestaudio",
         highWaterMark: 1 << 25,
-    }
+        bufferingTimeout: 3000,    }
 })
 
 const { YouTubeExtractor, SpotifyExtractor } = require('@discord-player/extractor');
@@ -36,6 +37,7 @@ bot.login(process.env.TOKEN).then(() =>
 
 loadCommands(bot);
 loadEvents(bot);
+loadPlayerEvents(bot);
 
 bot.on('messageReactionAdd', async (reaction, user) => {
     // Now the message has been cached and is fully available

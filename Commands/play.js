@@ -25,13 +25,13 @@ module.exports = {
 
         message.deferReply()
 
-// console.log(bot.player.createQueue)
+        // console.log(bot.player.createQueue)
         const queue = await bot.player.nodes.create(message.guild, { metadata: { message: message } })
         const track = await bot.player.search(song, { requestBy: message.user }).then(x => x.tracks[0])
-        if(!track) return message.reply("Aucune musique trouvée !")
+        if (!track) return message.reply("Aucune musique trouvée !")
 
-        if(!queue.connection) await queue.connect(message.member.voice.channel)
+        if (!queue.connection) await queue.connect(message.member.voice.channel)
         await queue.play(track)
-    message.followUp(`La musique ${track.title} a été ajoué à la file d'attente avec succès !`)        
+        message.followUp(`La musique ${track.title} a été ajoué à la file d'attente avec succès !`)
     }
 }
