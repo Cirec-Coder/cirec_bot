@@ -11,14 +11,29 @@ module.exports = {
     options: [],
 
     async run(bot, message, args) {
-
         // console.log(message.client.player.state)
         // bot.player.stop()
         // const queue = await bot.player.nodes.create(message.guild, { metadata: { message: message } })
-        const queue = await bot.player.nodes.get(message.guild)
-        if(!queue.connection || !queue.playing) return message.reply("Le bot ne joue pas de musique !")
+        const queue = await bot.player.nodes.get(message.guild);
+        // console.log(queue.isPlaying()); 
+        if (!queue) {
+            return message.reply(
+                "Le bot n'est pas connecté à un salon vocal !"
+            );
+        }
 
-        queue.destroy();
+        queue.delete();
         message.reply("La musique à bien été arrêtée !");
-    }
+    }    // async run(bot, message, args) {
+
+    //     // console.log(message.client.player.state)
+    //     // bot.player.stop()
+    //     // const queue = await bot.player.nodes.create(message.guild, { metadata: { message: message } })
+    //     const queue = await bot.player.nodes.get(message.guild)
+    //     console.log(queue.playing)
+    //     if(!queue || !queue.playing) return message.reply("Le bot ne joue pas de musique !")
+
+    //     queue.destroy();
+    //     message.reply("La musique à bien été arrêtée !");
+    // }
 }
