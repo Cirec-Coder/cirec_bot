@@ -3,11 +3,22 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'google',
+    description: 'Affiche un lien de recherche Google ',
+    permission: "Aucune",
+    dm: true,
+    category: 'Recherche',
+    options: [
+        {
+            type: "string",
+            name: "search",
+            description: "Chaine recherchée",
+            required: true,
+            autocomplete: false,
+        }
+    ],
 
-    async run(bot, message) {
-        // await message.delete();
-        let args = message.content.split(' ');
-        args.shift();
-        await message.reply("https://www.google.fr/search?q=" + args.join('%20'));
+    async run(bot, message, args) {
+        let search = message.options.getString("search").split(" ");
+        await message.reply({ content: "https://www.google.fr/search?q=" + search.join('%20'), ephemeral: true });
     }
 }

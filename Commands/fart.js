@@ -2,15 +2,15 @@ const Discord = require('discord.js');
 
 module.exports = {
 
-    name: 'ping',
-    description: 'Affiche la latence ',
+    name: 'fart',
+    description: 'Répond avec  https://prout.dev ',
     permission: 'Aucune',
     dm: true,
-    category: 'Information',
+    category: 'Humour',
 
     async run(bot, message) {
         // await message.delete();
         // await message.reply(`Hello ${message.author.globalName} ping : \`${bot.ws.ping}\``);
-        await message.reply({ content: `ping : \`${bot.ws.ping}\``, ephemeral: true });
+        await message.reply('https://prout.dev');
     }
 }
