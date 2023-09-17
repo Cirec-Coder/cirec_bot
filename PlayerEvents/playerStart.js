@@ -1,5 +1,4 @@
 module.exports = async (bot, queue, track) =>{
 
-    console.log(track.title);
-    queue.metadata.message.channel.send(`La musique ${track.title} est lancée !`)
+    queue.metadata.message.channel.send(`La musique ${track.title} demandée par ${track.requestedBy.tag} est lancée !`)
 }
