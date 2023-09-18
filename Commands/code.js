@@ -28,12 +28,12 @@ module.exports = {
 
     async run(bot, message) {
         try {
+            // console.log(message);
             let messageArray = message.content.split(' ');
             let language = messageArray[1];;
             messageArray.slice(1)
             let contents = messageArray.slice(2).join(' ');;
-            // console.log("\`\`\`" + language + "\n" + contents + "\`\`\`");
-            await message.reply({ content: "\`\`\`" + language + "\n" + contents + "\`\`\`", ephemeral: false });
+            await message.reply({ content: "\`\`\`" + language + "\n" + contents + "\`\`\`\nAuteur : " + message.author.globalName + ` à : <t:${Math.floor(Date.now() / 1000)}:F> !` , ephemeral: false });
             await message.delete();
 
         } catch (error) {
@@ -41,7 +41,3 @@ module.exports = {
         }
     }
 }
-
-// let content = message.options?.getString("content").value;
-// content = content.split(/\`\`\`(?:\w+\n)?/).join("");
-// await message.reply("\`\`\`"+language+"\`\`\`");
