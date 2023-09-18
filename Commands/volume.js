@@ -27,8 +27,8 @@ module.exports = {
             );
         }
 
-        if(vol > 100) return message.reply("Le volume ne peut pas être supérieur à 100 !");
-        if(vol < 0) return message.reply("Le volume ne peut pas être inférieur à 0 !");
+        if (vol > 100) vol = 100;
+        if (vol < 0) vol = 0;
 
         queue.node.setVolume(vol);
         message.reply(

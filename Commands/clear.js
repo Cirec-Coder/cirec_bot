@@ -20,27 +20,18 @@ module.exports = {
     async run(bot, message, args) {
         let nbMsg = args.getNumber("nombre");
 
-        if (!nbMsg) nbMsg = 100;
+		const messages = await message.channel.messages.fetch({limit: nbMsg});
+		const messagesToDelete = messages.filter((m) => Date.now() - m.createdTimestamp < 1209600 * 1000);
 
-        if (nbMsg > 100)
-            return message.reply(
-                "Le nombre de message ne peut pas être supérieur à 100 !"
-            );
+		if (!nbMsg) nbMsg = messagesToDelete.size;
 
-        const messages = await message.channel.messages.fetch({ limit: nbMsg });
-        const messagesToDelete = messages.filter(
-            (m) => Date.now() - m.createdTimestamp < 1209600 * 1000
-        );
+		if (nbMsg > 100) return message.reply("Le nombre de message ne peut pas être supérieur à 100 !");
 
-        if (messagesToDelete.size === 0) {
-            return message.reply("Aucun message à supprimer !");
-        } else if (messagesToDelete.size < nbMsg) {
-            return message.reply(
-                "Je ne peux pas supprimer les messages de plus de 2 semaines !"
-            );
-        } else {
-            await message.channel.bulkDelete(messagesToDelete.size);
-            message.reply(`J'ai supprimé ${nbMsg} messages !`);
-        }
-    },
+		if (messagesToDelete.size === 0) {
+			return message.reply("Aucun message à supprimer !");
+		} else {
+			await message.channel.bulkDelete(messagesToDelete.size);
+			message.reply(`J'ai supprimé ${nbMsg} messages !`);
+		}
+	},
 };
