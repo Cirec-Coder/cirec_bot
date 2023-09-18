@@ -6,7 +6,7 @@ module.exports = async bot => {
         .filter(f => f.endsWith(".js"))
         .forEach(async file => {
             let event = require(`../playerevents/${file}`);
-            bot.player.on(file.split(".js").join(""), event.bind(null, bot));
+            bot.player.events.on(file.split(".js").join(""), event.bind(null, bot));
             console.log(`Evènnement ${file} chargé avec succès !`);
         });
 

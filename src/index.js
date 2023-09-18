@@ -1,11 +1,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const Player = require('discord-player')
-// const { VolumeTransformer } = require('discord-player');
 const intents = new Discord.IntentsBitField(3276799);
-
-// const volume = new VolumeTransformer([{ volume: 100 }])
-// volume.setVolume(100)
 
 const bot = new Discord.Client({ intents });
 const loadCommands = require('../Loaders/loadCommands');
@@ -50,13 +46,3 @@ bot.on('messageReactionAdd', async (reaction, user) => {
     console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
     console.log(`${user.username} à réagit ! in main`);
 })
-
-// this event is emitted whenever discord-player starts to play a track
-bot.player.on('playerTrigger', async (queue, track) => {
-    console.log("hello world") 
-    // we will later define queue.metadata object while creating the queue
-    queue.metadata.channel.send(`Started playing **${track.title}**!`);
-});
-  
-
-
