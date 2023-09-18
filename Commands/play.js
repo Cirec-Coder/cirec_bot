@@ -12,30 +12,48 @@ module.exports = {
         {
             type: "string",
             name: "musique",
-            description: "Le nom de la misique à jouer",
+            description: "Le nom de la musique à jouer",
             required: true,
             autocomplete: false,
         }
     ],
 
-    async run(bot, message, args) {
-        let song = args.getString("musique");
-        if (!message.member.voice.channel) return message.reply("Tu n'es pas en vocal !");
-        if ((await message.guild.members.fetchMe()).voice.channel && (await message.guild.members.fetchMe()).voice.channel.id !== message.member.voice.channel.id) return message.reply("Nous ne somme pas dans le même salon vocal");
+	async run(bot, message, args) {
+		let song = args.getString("musique");
+
+		if (!message.member.voice.channel)
+			return message.reply("Tu n'es pas en vocal !");
+		if (
+			(await message.guild.members.fetchMe()).voice.channel &&
+			(await message.guild.members.fetchMe()).voice.channel.id !==
+			message.member.voice.channel.id
+		)
+			return message.reply("Nous ne somme pas dans le même salon vocal");
 
         message.deferReply()
 
-        // console.log(bot.player.createQueue)
-        const queue = await bot.player.nodes.create(message.guild, { metadata: { message: message } })
-        const track = await bot.player.search(song, { requestBy: message.user })
-            .then(x => x.tracks[0])
-        if (!track) return message.reply("Aucune musique trouvée !")
+		const queue = await bot.player.nodes.create(message.guild, {metadata: {message: message}, volume: 10 });
+		const track = await bot.player.search(song, {requestedBy: message.user}).then((x) => x.tracks[0]);
 
-        if (!queue.connection) await queue.connect(message.member.voice.channel)
-        await queue.play(track)
-        // .then(() => queue.metadata.message.channel.send(`La musique ${track.title} demandée par ${message.user.username} est lancée !`)
+		if (!track) return message.reply("Aucune musique trouvée !");
+		if (!queue.connection) await queue.connect(message.member.voice.channel);
 
-        // )
-        message.followUp(`La musique ${track.title} demandée par ${message.user.username} est lancée !`)
-    }
-}
+		let color = Math.floor(Math.random() * 16777215);
+
+		let Embed = new Discord.EmbedBuilder()
+			.setTitle('File d\'attente')
+			.setDescription(`Votre musique a été ajoutée à la file d'attente !`)
+			.setColor(color)
+			.setFields([
+				{name: "Musique", value: `[${track.title}](${track.url})`, inline: true},
+				{name: "Durée", value: `${track.duration}`, inline: true},
+				{name: "Vues", value: `${track.views}`, inline: true},
+				{name: "Commande effectué par", value: `${track.requestedBy}`, inline: false},
+			])
+			.setImage(track.thumbnail)
+			.setTimestamp()
+
+		await queue.play(track);
+		await message.followUp({embeds: [Embed]})
+	},
+};
