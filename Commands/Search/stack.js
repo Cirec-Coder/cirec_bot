@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'stack',
+    directory: 'search/',
     description: 'Affiche un lien de recherche Google ciblé sur Stackoverflow ',
     permission: 'Aucune',
     dm: true,

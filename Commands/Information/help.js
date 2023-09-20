@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'help',
+    directory: 'information/',
     description: 'Affiche les commandes du robot ',
     permission: 'Aucune',
     dm: true,

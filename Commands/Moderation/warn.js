@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'warn',
+    directory: 'moderation/',
     description: 'Warn un membre ',
     permission: Discord.PermissionFlagsBits.ManageMessages,
     dm: true,

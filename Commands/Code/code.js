@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'code',
+    directory: 'code/',
     description: 'Affiche du code avec la coloration syntaxique ',
     permission: 'Aucune',
     dm: true,

@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "clear",
+    directory: 'moderation/',
     description: "Clear les messages du salon (par défaut 1)",
     permission: Discord.PermissionFlagsBits.ManageMessages,
     dm: false,

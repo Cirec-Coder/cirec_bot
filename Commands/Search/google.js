@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'google',
+    directory: 'search/',
     description: 'Affiche un lien de recherche Google ',
     permission: "Aucune",
     dm: true,

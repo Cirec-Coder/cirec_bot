@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const Canvas = require("discord-canvas-easy");
-// Canvas.registerFont(`futura-bold.ttf`, { family: "Futura Book" })
 
 /**
  * 
@@ -24,20 +23,6 @@ module.exports = async (bot, message) => {
         )
         return
 
-        // const Rank = await new Canvas.Card()
-        // .setBot(bot)
-        // .setGuild(message.guild)
-        // .setUser(message.author)
-        // .setBackground("rankBG.jpg")
-        // .setRank(2) //optional
-        // .setLevel(5) //optional
-        // .setXpNeed(6000) //optional
-        // .setXp(4457) //optional
-        // .setColorFont("#000000") //optional
-        // .setColorProgressBar("#3748ff") //optional
-        // .toCard()
-
-        // return message.reply({files: [new Discord.AttachmentBuilder(Rank.toBuffer(), {name: "rank.png"})]})
     }
 
     if (message.content === "!leaderboard") {
@@ -62,7 +47,10 @@ module.exports = async (bot, message) => {
 
     if (!message.content.startsWith(prefix)) return;
 
-    let command = require(`../Commands/${commandName}`);
+    let dir;
+    bot.commands.filter(cmd => cmd.name === commandName)
+        .map(cmd => dir = cmd.directory)
+    let command = require(`../Commands/${dir ? dir : ""}${commandName}`);
     if (!command) return message.reply("Il n'y a pas de commande !");
 
     command.run(bot, message, args);
