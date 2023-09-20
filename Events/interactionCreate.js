@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 module.exports = async (bot, interaction) => {
 
     if (interaction.type === Discord.InteractionType.ApplicationCommandAutocomplete) {
-        // console.log(arg)
         
         let entry = interaction.options.getFocused();
 
@@ -16,16 +15,11 @@ module.exports = async (bot, interaction) => {
     }
 
     if (interaction.type === Discord.InteractionType.ApplicationCommand) {
-        const comm = bot.commands.filter(cmd => cmd.name === interaction.commandName);
         let dir;
-        comm.map(cmd =>  { dir = cmd.directory})
-        
+        bot.commands.filter(cmd => cmd.name === interaction.commandName)
+            .map(cmd =>  dir = cmd.directory)
         let command = require(`../Commands/${dir ? dir :""}${interaction.commandName}`);
-        command.run(bot, interaction, interaction.options, bot.db);
+        await command.run(bot, interaction, interaction.options, bot.db);
     } 
 
-    // if (interaction.type === Discord.InteractionType.MessageComponent) {
-    //     let command = require(`../Commands/${interaction.commandName}`);
-    //     command.run(bot, interaction)
-    // }
 }
