@@ -20,5 +20,17 @@ module.exports = {
 
         queue.node.skip();
         message.reply("La musique à bien été skip !");
-    },
+    //     const track = queue.currentTrack;
+
+    //     const embed = new Discord.EmbedBuilder()
+    //     //   .baseEmbed(message)
+    //     //   .setAuthor({ name: "Nowplaying 🎵" })
+    //       .setTitle(`${track.title}`)
+    //     //   .setURL(`${track.url}`)
+    //     //   .setThumbnail(`${track.thumbnail}`)
+    //       .setDescription(`Played by: ${track.requestedBy.toString()}\n
+    // ${queue.node.createProgressBar()}`);
+    
+    //      message.reply({ ephemeral: true, embeds: [embed] }).catch(console.error);
+        },
 };

@@ -11,7 +11,7 @@ module.exports = {
 
     async run(bot, message, args) {
         const queue = await bot.player.nodes.get(message.guild);
-        //console.log(queue.node);
+
         if (!queue) {
             return message.reply(
                 "Le bot n'est pas connecté à un salon vocal !"
@@ -19,6 +19,6 @@ module.exports = {
         }
 
         queue.node.pause();
-        message.reply("La musique à bien été mis en pause !");
+        message.reply("La musique à bien été mise en pause !");
     },
 };

@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
 // const loadSlashCommands = require("../Loaders/loadSlashCommands")
 
-module.exports = async (reaction, user) => {
+module.exports = async (bot, reaction, user) => {
 	// Now the message has been cached and is fully available
-//	console.log(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
+    console.log(`Nouvelle réaction sur le message de ${reaction.message.author.globalName}\n "${reaction.message.content}"`);
 	// The reaction is now also fully available and the properties will be reflected accurately:
-	console.log(`${reaction.count} user(s) have given the same reaction to this message!`);
-    console.log(`${user.username} à réagit !`);
+	if(reaction.count > 1 )
+	console.log(`${reaction.count} utilisateurs eut la même réactions !`);
+    console.log(`${user.globalName} à réagit avec l'emoji : \`\`${reaction.emoji.name}\`\` !\n`);
 }

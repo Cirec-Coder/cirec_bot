@@ -14,7 +14,7 @@ module.exports = {
             name: "commande",
             description: "La commande à afficher",
             required: false,
-            autocomplete: false,
+            autocomplete: true,
         }
     ],
 
@@ -36,20 +36,20 @@ module.exports = {
             );
 
             let Embed = new Discord.EmbedBuilder()
+                .setImage("https://images.pexels.com/photos/2085832/pexels-photo-2085832.jpeg")
                 .setColor(bot.color)
-                .setTitle(`Commandes du bot`)
+                .setTitle(`✨   Liste des commandes disponibles   ✨`)
                 .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
                 .setDescription(`Commandes disponibles : \`${bot.commands.size}\`\nCatégories disponibles : \`${categories.length} \``)
                 .setTimestamp()
                 .setFooter({ text: "Commandes du robot" })
 
-            await categories.sort().forEach(async cat => {
-
+            categories.sort().forEach(async cat => {
                 let commands = bot.commands.filter(cmd => cmd.category === cat)
-                Embed.addFields({ name: `${cat}`, value: `${commands.map(cmd => `\`${cmd.name}\` : ${cmd.description}`).join("\n") }`})
+                Embed.addFields({ name: `${bot.myEmojis[cat.toLowerCase()]}     ${cat}`, value: `${commands.map(cmd => `\`🔹 ${cmd.name}\` : \t${cmd.description}`).join("\n") }`})
             })
-
-            await message.reply({embeds: [Embed], ephemeral: true })
+ 
+            await message.reply({embeds: [Embed], ephemeral: true }) 
         };
     }
 }

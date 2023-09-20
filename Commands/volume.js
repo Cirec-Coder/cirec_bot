@@ -30,7 +30,8 @@ module.exports = {
         if (vol > 100) vol = 100;
         if (vol < 0) vol = 0;
 
-        queue.node.setVolume(vol);
+        bot.volume = vol;
+        queue.node.setVolume(bot.volume);
         message.reply(
             `Le volume de la musique à bien été mis sur ${vol.toString()} !`
         );

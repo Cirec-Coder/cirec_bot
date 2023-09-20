@@ -32,8 +32,12 @@ module.exports = {
 
         message.deferReply()
 
-        const queue = await bot.player.nodes.create(message.guild, { metadata: { message: message }, volume: 10 });
-        const track = await bot.player.search(song, { requestedBy: message.user }).then((x) => x.tracks[0]);
+        const queue = await bot.player.nodes
+            .create(message.guild, { metadata: { message: message }, volume: bot.volume });
+
+            const track = await bot.player
+            .search(song, { requestedBy: message.user })
+            .then((x) => x.tracks[0]);
 
         if (!track) return message.reply("Aucune musique trouvée !");
         if (!queue.connection) await queue.connect(message.member.voice.channel);
@@ -51,9 +55,31 @@ module.exports = {
                 { name: "Commande effectué par", value: `${track.requestedBy}`, inline: false },
             ])
             .setImage(track.thumbnail)
+            
             .setTimestamp()
 
+
+        // const pause = new Discord.ButtonBuilder()
+        //     .setCustomId('pause')
+        //     .setLabel('Pause')
+        //     .setStyle(Discord.ButtonStyle.Primary);
+
+        // const stop = new Discord.ButtonBuilder()
+        //     .setCustomId('stop')
+        //     .setLabel('Stop')
+        //     .setStyle(Discord.ButtonStyle.Primary);
+
+        // const row = new Discord.ActionRowBuilder()
+        //     .addComponents(stop, pause);
+
+
+
+
         await queue.play(track);
-        await message.followUp({ embeds: [Embed] })
+        await message.followUp({ embeds: [Embed]/*, components: [row]*/ })
+        // await message.followUp({
+        // 	content: ``,
+        // 	components: [row],
+        // });
     },
 };

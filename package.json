@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node --trace-warnings ./src/index.js",
-    "dev": "nodemon --trace-warnings ./src/index.js",
+    "dev": "cls && nodemon --trace-warnings ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cirec",
@@ -15,6 +15,7 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/rest": "^2.0.1",
     "avconv": "^3.1.0",
+    "discord-canvas-easy": "^3.2.1",
     "discord-player": "^6.6.3",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
@@ -24,6 +25,13 @@
     "mysql": "^2.18.1",
     "ytdl-core": "^4.11.5"
   },
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs"
+    },
+    "exclude": [
+      "node_modules"
+    ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cirec-Coder/cirec_bot.git"
