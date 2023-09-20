@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "skip",
+    directory: 'music/',
     description: "Skip la musique ",
     permission: "Aucune",
     dm: false,

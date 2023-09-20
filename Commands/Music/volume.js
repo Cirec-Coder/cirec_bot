@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: "volume",
+    directory: 'music/',
     description: "Change le volume de la musique ",
     permission: "Aucune",
     dm: false,

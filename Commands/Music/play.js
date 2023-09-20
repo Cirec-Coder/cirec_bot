@@ -3,10 +3,11 @@ const Discord = require('discord.js');
 module.exports = {
 
     name: 'play',
+    directory: 'music/',
     description: 'Joue de la musique ',
     permission: "Aucune",
     dm: false,
-    category: 'Musique',
+    category: 'Musique', 
 
     options: [
         {

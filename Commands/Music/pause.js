@@ -1,25 +1,25 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
 module.exports = {
-
-    name: 'stop',
-    description: 'Stop la musique ',
+    name: "pause",
+    directory: 'music/',
+    description: "Pause la musique ",
     permission: "Aucune",
     dm: false,
-    category: 'Musique',
+    category: "Musique",
 
     options: [],
 
     async run(bot, message, args) {
-
         const queue = await bot.player.nodes.get(message.guild);
+
         if (!queue) {
             return message.reply(
                 "Le bot n'est pas connecté à un salon vocal !"
             );
         }
 
-		queue.delete();
-		message.reply("La musique à bien été arrêtée !");
-	}
-}
+        queue.node.pause();
+        message.reply("La musique à bien été mise en pause !");
+    },
+};
