@@ -38,7 +38,7 @@ module.exports = {
 
             let Embed = new Discord.EmbedBuilder()
                 .setImage("https://images.pexels.com/photos/2085832/pexels-photo-2085832.jpeg")
-                .setColor(bot.color)
+                .setColor('#CC07CC')
                 .setTitle(`✨   Liste des commandes disponibles   ✨`)
                 .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
                 .setDescription(`Commandes disponibles : \`${bot.commands.size}\`\nCatégories disponibles : \`${categories.length} \``)
@@ -47,7 +47,7 @@ module.exports = {
 
             categories.sort().forEach(async cat => {
                 let commands = bot.commands.filter(cmd => cmd.category === cat)
-                Embed.addFields({ name: `${bot.myEmojis[cat.toLowerCase()]}     ${cat}`, value: `${commands.map(cmd => `\`🔹 ${cmd.name}\` : \t${cmd.description}`).join("\n") }`})
+                Embed.addFields({ name: `${bot.myEmojis[cat.toLowerCase()]}     ${cat}`, value: `${commands.map(cmd => `\`🔹 ${cmd.name}\` : \t${cmd.description}`).join("\n") }\n\n`})
             })
  
             await message.reply({embeds: [Embed], ephemeral: true }) 

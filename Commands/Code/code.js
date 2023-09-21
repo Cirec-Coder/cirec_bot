@@ -4,8 +4,8 @@ module.exports = {
 
     name: 'code',
     directory: 'code/',
-    description: 'Affiche du code avec la coloration syntaxique ',
-    permission: 'Aucune',
+    description: `Affiche du code avec coloration syntaxique \nEx. : !code langage extrait de code \n `,
+    permission: Discord.PermissionFlagsBits.ManageMessages,
     dm: true,
     category: 'Code',
     // options: [

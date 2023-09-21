@@ -11,7 +11,7 @@ module.exports = async (bot, message) => {
 
     if (message.content === "!rank") {
 
-        bot.function.rank(bot, message,
+        bot.utils.rank(bot, message,
             {
                 rank: 1,
                 level: 6,

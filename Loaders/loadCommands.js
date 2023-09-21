@@ -1,6 +1,12 @@
+const Discord = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @returns void
+ */
 module.exports = async bot => {
 
     function *walkSync(dir) {

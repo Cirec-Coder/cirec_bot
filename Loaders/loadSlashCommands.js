@@ -32,7 +32,7 @@ module.exports = async bot => {
             }
         }
 
-        await commands.push(slashCommand);
+        commands.push(slashCommand);
     });
 
     const rest = new REST({ version: "10" }).setToken(bot.token)

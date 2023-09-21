@@ -48,7 +48,7 @@ module.exports = {
 
         await message.reply(`Vous avez warn ${user.tag} pour la raison : \`${raison} \` avec succès !`);
 
-        let ID = await bot.function.createId("WARN");
+        let ID = await bot.utils.createId("WARN");
 
         db.query(`INSERT INTO warns (guild, user, author, warn, reason, date) VALUES ('${message.guild.id}', '${user.id}', '${message.user.id}', '${ID}', '${raison.replace(/'/g, "\\'")}', '${Date.now()}')`);
     }

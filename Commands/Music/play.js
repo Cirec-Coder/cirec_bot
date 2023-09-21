@@ -43,17 +43,19 @@ module.exports = {
         if (!track) return message.reply("Aucune musique trouvée !");
         if (!queue.connection) await queue.connect(message.member.voice.channel);
 
-        let color = Math.floor(Math.random() * 16777215);
-
+        // let color = Math.floor(Math.random() * 16777215);
+        const nbViews = track.views.toLocaleString().replace(/ /g, "  ")
+        // console.log(dd.replace(/ /g, " "))
         let Embed = new Discord.EmbedBuilder()
             .setTitle('File d\'attente')
             .setDescription(`Votre musique a été ajoutée à la file d'attente !`)
-            .setColor(color)
+            .setColor(bot.utils.getRandomColor())
             .setFields([
                 { name: "Musique", value: `[${track.title}](${track.url})`, inline: true },
                 { name: "Durée", value: `${track.duration}`, inline: true },
-                { name: "Vues", value: `${track.views}`, inline: true },
-                { name: "Commande effectué par", value: `${track.requestedBy}`, inline: false },
+                { name: "Vues", value: `${nbViews}`, inline: true },
+                { name: "Commande effectué par", value: `${track.requestedBy}`, inline: true },
+                { name: "Volume", value: `${bot.volume} / 100`, inline: true },
             ])
             .setImage(track.thumbnail)
             

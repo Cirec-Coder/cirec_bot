@@ -1,5 +1,9 @@
 const Discord = require('discord.js');
-
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {Discord.Interaction} interaction 
+ */
 module.exports = async (bot, interaction) => {
 
     if (interaction.type === Discord.InteractionType.ApplicationCommandAutocomplete) {
