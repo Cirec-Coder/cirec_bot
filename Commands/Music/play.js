@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const {EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder} = require('discord.js');
 
 module.exports = {
 
@@ -43,9 +43,8 @@ module.exports = {
         if (!track) return message.reply("Aucune musique trouvée !");
         if (!queue.connection) await queue.connect(message.member.voice.channel);
 
-        // console.log(queue.node.isPlaying());
         const nbViews = track.views.toLocaleString().replace(/ /g, "  ")
-        let Embed = new Discord.EmbedBuilder()
+        let Embed = new EmbedBuilder()
             .setTitle('File d\'attente')
             .setDescription(`Votre musique a été ajoutée à la file d'attente !`)
             .setColor(bot.utils.getRandomColor())
@@ -62,34 +61,33 @@ module.exports = {
 
         await queue.play(track);
         if (!queue.node.isPlaying()) {
-            const pause = new Discord.ButtonBuilder()
+            const pause = new ButtonBuilder()
                 .setCustomId('pause')
                 .setLabel('Pause')
-                .setStyle(Discord.ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Primary);
 
-            const resume = new Discord.ButtonBuilder()
+            const resume = new ButtonBuilder()
                 .setCustomId('resume')
                 .setLabel('Resume')
-                .setStyle(Discord.ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Primary);
 
-            const stop = new Discord.ButtonBuilder()
+            const stop = new ButtonBuilder()
                 .setCustomId('stop')
                 .setLabel('Stop')
-                .setStyle(Discord.ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Primary);
 
-            const row = new Discord.ActionRowBuilder()
+            const row = new ActionRowBuilder()
                 .addComponents(pause, resume, stop);
-            // await queue.play(track);
-            await message.followUp({ embeds: [Embed], components: [row] }).then((msg) => msg.pin())
+            await message.followUp({ embeds: [Embed], components: [row] })
+            //.then((msg) => msg.pin())
         } else {
-            // await queue.play(track);
 
-            const skip = new Discord.ButtonBuilder()
+            const skip = new ButtonBuilder()
                 .setCustomId('skip')
                 .setLabel('Skip')
-                .setStyle(Discord.ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Primary);
 
-            const row = new Discord.ActionRowBuilder()
+            const row = new ActionRowBuilder()
                 .addComponents(skip);
             await message.followUp({ embeds: [Embed], components: [row] })
         }
