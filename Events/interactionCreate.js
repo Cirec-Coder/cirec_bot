@@ -1,13 +1,12 @@
-const Discord = require('discord.js');
-const { codeBlock } = require('discord.js');
+const { Client, Interaction, InteractionType, codeBlock } = require('discord.js');
 /**
  * 
- * @param {Discord.Client} bot 
- * @param {Discord.Interaction} interaction 
+ * @param {Client} bot 
+ * @param {Interaction} interaction 
  */
 module.exports = async (bot, interaction) => {
 
-    if (interaction.type === Discord.InteractionType.ApplicationCommandAutocomplete) {
+    if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
 
         let entry = interaction.options.getFocused();
 
@@ -17,15 +16,14 @@ module.exports = async (bot, interaction) => {
             await interaction.respond(entry === "" ? bot.commands.map(cmd => ({ name: cmd.name, value: cmd.name })) : choices.map(choice => ({ name: choice.name, value: choice.name })))
         }
     }
-
-    if (interaction.type === Discord.InteractionType.ApplicationCommand) {
+    else if (interaction.type === InteractionType.ApplicationCommand) {
         let dir;
         bot.commands.filter(cmd => cmd.name === interaction.commandName)
             .map(cmd => dir = cmd.directory)
         let command = require(`../Commands/${dir ? dir : ""}${interaction.commandName}`);
         await command.run(bot, interaction, interaction.options, bot.db);
     }
-    else if (interaction.type === Discord.InteractionType.ModalSubmit) {
+    else if (interaction.type === InteractionType.ModalSubmit) {
         if (interaction.customId === "codeHighlighterModal") {
             const language = interaction.fields.getTextInputValue("language");
             const code = interaction.fields.getTextInputValue("code");
@@ -51,8 +49,7 @@ module.exports = async (bot, interaction) => {
                 await interaction.channel.send({ content: codeBlock(language, newCodes[i]), ephemeral: false });
             }
         }
-    }
-    if (interaction.isButton()) {
+    } else if (interaction.isButton()) {
         const { customId } = interaction;
 
         let dir;
