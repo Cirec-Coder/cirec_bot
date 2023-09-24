@@ -30,7 +30,7 @@ module.exports = async (bot, message) => {
         const Leaderboard = await new Canvas.Leaderboard()
             .setBot(bot)
             .setGuild(message.guild)
-            .setBackground("pikachu.png")
+            .setBackground("./src/assets/img/pikachu.png")
             .addUser(message.author, 8 /*the level*/, 4589 /*the xp*/, 9000 /*the xp need*/)
             .setColorFont("#ffffff") //optional
             .toLeaderboard()

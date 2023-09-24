@@ -37,10 +37,10 @@ module.exports = {
             );
 
             let Embed = new Discord.EmbedBuilder()
-                .setImage("https://images.pexels.com/photos/2085832/pexels-photo-2085832.jpeg")
+                .setThumbnail("https://images.pexels.com/photos/2085832/pexels-photo-2085832.jpeg")
                 .setColor('#CC07CC')
                 .setTitle(`✨   Liste des commandes disponibles   ✨`)
-                .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
+                // .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
                 .setDescription(`Commandes disponibles : \`${bot.commands.size}\`\nCatégories disponibles : \`${categories.length} \``)
                 .setTimestamp()
                 .setFooter({ text: "Commandes du robot" })

@@ -33,7 +33,7 @@ async function rank(bot, interaction, params) {
     .setBot(bot)
     .setGuild(interaction.guild)
     .setUser(interaction.author)
-    .setBackground("rankBG.jpg")
+    .setBackground("./src/assets/img/rankBG.jpg")
 
     .setRank(params || params.rank !== undefined ? params.rank : 7) //optional
     .setLevel(params || params.level !== undefined ? params.level : 1) //optional
