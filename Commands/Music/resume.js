@@ -10,16 +10,23 @@ module.exports = {
 
     options: [],
 
-    async run(bot, message, args) {
-        const queue = await bot.player.nodes.get(message.guild);
+    async run(bot, interaction, args) {
+        const queue = await bot.player.nodes.get(interaction.guild);
         //console.log(queue.node);
         if (!queue) {
-            return message.reply(
+            return interaction.reply(
                 "Le bot n'est pas connecté à un salon vocal !"
             );
         }
 
         queue.node.resume();
-        message.reply("La musique à bien été relancée !");
+        if (interaction.isButton()) {
+            // const { message } = interaction;
+            // message.edit({ components: [] });
+
+            // termine l'intercation en silence
+            return interaction.deferUpdate()
+        } else 
+            return interaction.reply("La musique à bien été relancée !");
     },
 };

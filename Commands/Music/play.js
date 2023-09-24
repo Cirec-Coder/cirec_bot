@@ -7,7 +7,7 @@ module.exports = {
     description: 'Joue de la musique ',
     permission: "Aucune",
     dm: false,
-    category: 'Musique', 
+    category: 'Musique',
 
     options: [
         {
@@ -36,16 +36,15 @@ module.exports = {
         const queue = await bot.player.nodes
             .create(message.guild, { metadata: { message: message }, volume: bot.volume });
 
-            const track = await bot.player
+        const track = await bot.player
             .search(song, { requestedBy: message.user })
             .then((x) => x.tracks[0]);
 
         if (!track) return message.reply("Aucune musique trouvée !");
         if (!queue.connection) await queue.connect(message.member.voice.channel);
 
-        // let color = Math.floor(Math.random() * 16777215);
+        // console.log(queue.node.isPlaying());
         const nbViews = track.views.toLocaleString().replace(/ /g, "  ")
-        // console.log(dd.replace(/ /g, " "))
         let Embed = new Discord.EmbedBuilder()
             .setTitle('File d\'attente')
             .setDescription(`Votre musique a été ajoutée à la file d'attente !`)
@@ -58,31 +57,41 @@ module.exports = {
                 { name: "Volume", value: `${bot.volume} / 100`, inline: true },
             ])
             .setImage(track.thumbnail)
-            
+
             .setTimestamp()
 
-
-        // const pause = new Discord.ButtonBuilder()
-        //     .setCustomId('pause')
-        //     .setLabel('Pause')
-        //     .setStyle(Discord.ButtonStyle.Primary);
-
-        // const stop = new Discord.ButtonBuilder()
-        //     .setCustomId('stop')
-        //     .setLabel('Stop')
-        //     .setStyle(Discord.ButtonStyle.Primary);
-
-        // const row = new Discord.ActionRowBuilder()
-        //     .addComponents(stop, pause);
-
-
-
-
         await queue.play(track);
-        await message.followUp({ embeds: [Embed]/*, components: [row]*/ })
-        // await message.followUp({
-        // 	content: ``,
-        // 	components: [row],
-        // });
+        if (!queue.node.isPlaying()) {
+            const pause = new Discord.ButtonBuilder()
+                .setCustomId('pause')
+                .setLabel('Pause')
+                .setStyle(Discord.ButtonStyle.Primary);
+
+            const resume = new Discord.ButtonBuilder()
+                .setCustomId('resume')
+                .setLabel('Resume')
+                .setStyle(Discord.ButtonStyle.Primary);
+
+            const stop = new Discord.ButtonBuilder()
+                .setCustomId('stop')
+                .setLabel('Stop')
+                .setStyle(Discord.ButtonStyle.Primary);
+
+            const row = new Discord.ActionRowBuilder()
+                .addComponents(pause, resume, stop);
+            // await queue.play(track);
+            await message.followUp({ embeds: [Embed], components: [row] }).then((msg) => msg.pin())
+        } else {
+            // await queue.play(track);
+
+            const skip = new Discord.ButtonBuilder()
+                .setCustomId('skip')
+                .setLabel('Skip')
+                .setStyle(Discord.ButtonStyle.Primary);
+
+            const row = new Discord.ActionRowBuilder()
+                .addComponents(skip);
+            await message.followUp({ embeds: [Embed], components: [row] })
+        }
     },
 };

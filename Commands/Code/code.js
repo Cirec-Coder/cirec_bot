@@ -1,44 +1,39 @@
-const Discord = require('discord.js');
+const {Discord, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle} = require('discord.js');
 
 module.exports = {
 
     name: 'code',
     directory: 'code/',
-    description: `Affiche du code avec coloration syntaxique \nEx. : !code langage extrait de code \n `,
-    permission: Discord.PermissionFlagsBits.ManageMessages,
+    description: `Affiche du code avec coloration la syntaxique`,
+    permission: PermissionFlagsBits.Administrator,
     dm: true,
     category: 'Code',
-    // options: [
-    //     {
-    //         type: "string",
-    //         name: "language",
-    //         description: "Le langage du code posté",
-    //         required: false,
-    //         autocomplete: false,
-    //     },
-    //     {
-    //         type: "string",
-    //         name: "content",
-    //         description: "Le code à poster",
-    //         required: false,
-    //         autocomplete: false,
-    //     },
+        options: [],
+    async run(bot, interaction, args) {
 
-    // ],
-
-
-    async run(bot, message) {
-        try {
-            // console.log(message);
-            let messageArray = message.content.split(' ');
-            let language = messageArray[1];;
-            messageArray.slice(1)
-            let contents = messageArray.slice(2).join(' ');;
-            await message.reply({ content: "\`\`\`" + language + "\n" + contents + "\`\`\`\nAuteur : " + message.author.globalName + ` à : <t:${Math.floor(Date.now() / 1000)}:F> !` , ephemeral: false });
-            await message.delete();
-
-        } catch (error) {
-            // console.error(error);
+            
+    
+            const modal = new ModalBuilder()
+                .setTitle("Formulaire de dépot de code")
+                .setCustomId('codeHighlighterModal')
+                .setComponents(
+                    new ActionRowBuilder().setComponents(
+                        new TextInputBuilder()
+                            .setLabel("Langage")
+                            .setCustomId("language")
+                            .setStyle(TextInputStyle.Short)
+                    ),
+                    
+                    new ActionRowBuilder().setComponents(
+                        new TextInputBuilder()
+                            .setLabel("Code")
+                            .setCustomId("code")
+                            .setStyle(TextInputStyle.Paragraph)
+                    ),
+                    
+                );
+    
+                interaction.showModal(modal);
+    
         }
-    }
-}
+} 

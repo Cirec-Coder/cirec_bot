@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { Discord, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
 
@@ -19,7 +19,22 @@ module.exports = {
     ],
 
     async run(bot, message, args) {
-        let search = message.options.getString("search").split(" ");
-        await message.reply({ content: "https://www.google.fr/search?q=" + search.join('%20'), ephemeral: true });
+        try {
+            let search = message.options.getString("search").split(" ");
+            await message.reply({
+                // content: "https://www.google.fr/search?q=" + search.join('%20'),
+                content: "Résultat de la recherche",
+                components: [new ActionRowBuilder().setComponents(
+                    new ButtonBuilder()
+                        .setLabel('Voir les résultats')
+                        .setStyle(ButtonStyle.Link)
+                        .setURL("https://www.google.fr/search?q=" + search.join('%20')),
+                )],
+                ephemeral: true
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 }

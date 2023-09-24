@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const Player = require('discord-player')
+const {Player} = require('discord-player')
 const loadCommands = require('../Loaders/loadCommands');
 const loadEvents = require('../Loaders/loadEvents');
 const loadPlayerEvents = require('../Loaders/loadPlayerEvents');
@@ -10,10 +10,9 @@ const loadPlayerEvents = require('../Loaders/loadPlayerEvents');
  */
 module.exports = async bot => {
 
-    bot.player = new Player.Player(bot, {
+    bot.player = new Player(bot, {
         leaveOnEnd: true,
         leaveOnEmpty: true,
-        initialVolume: 2,
         ytdlOptions: {
             filter: "audioonly",
             quality: "highestaudio",
