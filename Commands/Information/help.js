@@ -9,23 +9,30 @@ module.exports = {
     dm: true,
     category: 'Information',
 
-    options: [
-        {
-            type: "string",
-            name: "commande",
-            description: "La commande à afficher",
-            required: false,
-            autocomplete: true,
-        }
-    ],
+    // options: [
+    //     {
+    //         type: "string",
+    //         name: "commande",
+    //         description: "La commande à afficher",
+    //         required: false,
+    //         autocomplete: true,
+    //     }
+    // ],
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {Discord.Interaction} message 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, message, args) {
 
         let command;
-        if (args.getString("commande")) {
-            command = bot.commands.get(args.getString("commande"));
-            if (!command) return message.reply("Pas de commande !")
-        }
+        // if (args.getString("commande")) {
+        //     command = bot.commands.get(args.getString("commande"));
+        //     if (!command) return message.reply("Pas de commande !")
+        // }
 
         if (!command) {
 

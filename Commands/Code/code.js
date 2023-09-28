@@ -3,12 +3,20 @@ const {Discord, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBu
 module.exports = {
 
     name: 'code',
+    type: 2,
     directory: 'code/',
     description: `Affiche du code avec coloration la syntaxique`,
     permission: PermissionFlagsBits.Administrator,
     dm: true,
     category: 'Code',
         options: [],
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {import('discord.js').Interaction} interaction 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, interaction, args) {
 
             

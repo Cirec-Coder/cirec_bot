@@ -18,6 +18,13 @@ module.exports = {
         },
     ],
 
+    /**
+     * 
+ * @param {Discord.Client} bot 
+ * @param {import('discord.js').Interaction} message 
+ * @param {Discord.CommandInteractionOptionResolver} args 
+     * @returns 
+     */
     async run(bot, message, args) {
         let nbMsg = args.getNumber("nombre");
 
@@ -31,8 +38,9 @@ module.exports = {
 		if (messagesToDelete.size === 0) {
 			return message.reply("Aucun message à supprimer !");
 		} else {
+
 			await message.channel.bulkDelete(messagesToDelete.size);
-			message.reply(`J'ai supprimé ${nbMsg} messages !`);
+			await message.reply(`J'ai supprimé ${nbMsg} messages !`);
 		}
 	},
 };

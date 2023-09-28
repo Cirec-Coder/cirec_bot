@@ -8,6 +8,13 @@ module.exports = {
     dm: false,
     category: "Musique",
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {Discord.Interaction} message 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, message, args) {
 
         const queue = await bot.player.nodes.get(message.guild);

@@ -7,3 +7,4 @@ const initBot = require('../Loaders/initBot');
 
 initBot(bot);
 
+console.log(`Version du Bot : ${bot.version}`)

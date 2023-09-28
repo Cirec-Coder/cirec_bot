@@ -2,6 +2,10 @@ const Discord = require('discord.js');
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord.js')
 
+/**
+ * 
+ * @param {Discord.Client} bot 
+ */
 module.exports = async bot => {
 
     let commands = [];
@@ -35,9 +39,29 @@ module.exports = async bot => {
         commands.push(slashCommand);
     });
 
+
+            // console.log(commands)
+    const comm = [
+        {
+            name: 'mdr',
+            type: 2,
+        },
+        {
+            name: 'pause',
+            type: 2,
+        },
+        {
+            name: 'skip',
+            type: 2,
+        },
+        {
+            name: 'code',
+            type: 2,
+        },
+    ]
+    const GUILD_ID = "1093245130800111737";//"1150761376747372554" 
     const rest = new REST({ version: "10" }).setToken(bot.token)
 
-    await rest.put(Routes.applicationCommands(bot.user.id), {body: commands})
-            // console.log(commands)
-    console.log("Les slashs commandes sont créées avec succès !")
+    await rest.put(Routes.applicationCommands(bot.user.id), {body: commands});
+    console.log("✅ Les slashs commandes sont créées avec succès !")
 }

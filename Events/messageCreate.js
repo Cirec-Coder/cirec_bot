@@ -4,7 +4,7 @@ const Canvas = require("discord-canvas-easy");
 /**
  * 
  * @param {Discord.Client} bot 
- * @param {Object} message 
+ * @param {import('discord.js').Interaction} message 
  * @returns 
  */
 module.exports = async (bot, message) => {
@@ -39,21 +39,10 @@ module.exports = async (bot, message) => {
     }
 
 
+    //     // ( ͡° ͜ʖ ͡°) \n 
+        
 
 
-    // let prefix = "!";
 
-    // let messageArray = message.content.split(' ');
-    // let commandName = messageArray[0].slice(prefix.length);
-    // let args = messageArray.slice(1);
 
-    // if (!message.content.startsWith(prefix)) return;
-
-    // let dir;
-    // bot.commands.filter(cmd => cmd.name === commandName)
-    //     .map(cmd => dir = cmd.directory)
-    // let command = require(`../Commands/${dir ? dir : ""}${commandName}`);
-    // if (!command) return message.reply("Il n'y a pas de commande !");
-
-    // command.run(bot, message, args);
 }

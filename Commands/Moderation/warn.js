@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+// const mysql = require('mysql');
 
 module.exports = {
 
@@ -26,7 +27,14 @@ module.exports = {
 
     ],
 
-
+/**
+ * 
+ * @param {Discord.Client} bot 
+ * @param {import('discord.js').Interaction} message 
+ * @param {Discord.CommandInteractionOptionResolver} args 
+ * @param {import('mysql').Connection} db 
+ * @returns 
+ */
     async run(bot, message, args, db) {
 
         let user = args.getUser("membre");

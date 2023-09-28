@@ -20,6 +20,12 @@ module.exports = {
     ],
 
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {Discord.Interaction} message 
+    * @returns 
+    */
     async run(bot, message) {
         try {
             let search = message.options.getString("search").split(" ");

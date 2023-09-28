@@ -21,14 +21,8 @@ module.exports = async bot => {
         }
     })
     
-    // console.log(bot.player.eventNames()) 
     bot.volume = 20;
     bot.color = "#ffffff";
-    // bot.function = {
-    //     rank: require('../Fonctions/rank'),
-    //     createId: require('../Fonctions/createId'),
-    //     getRandomColor: require('../Fonctions/getRandomColor'),
-    // }
 
     bot.utils = require('../Modules/utils')
 
@@ -43,17 +37,20 @@ module.exports = async bot => {
     const { YouTubeExtractor, SpotifyExtractor } = require('@discord-player/extractor');
 
     bot.player.extractors.register(YouTubeExtractor, SpotifyExtractor);
-    // bot.player.extractors.loadDefault();
 
+
+    bot.version = require('../package.json').version;
+    // bot.paused = false;
+    bot.currentTrack = null;
 
     bot.commands = new Discord.Collection();
 
     bot.login(process.env.TOKEN).then(() =>
-        console.log(`Robot ${bot.user.tag} chargé avec succès !`)).catch(console.error);
+        console.log(`✅ Robot ${bot.user.tag} chargé avec succès !`)).catch(console.error);
 
     loadCommands(bot);
     loadEvents(bot);
     loadPlayerEvents(bot);
 
-    return //bot
+    return 
 }

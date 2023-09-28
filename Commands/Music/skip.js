@@ -10,6 +10,13 @@ module.exports = {
 
     options: [],
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {import('discord.js').Interaction} interaction 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, interaction, args) {
         const queue = await bot.player.nodes.get(interaction.guild);
 

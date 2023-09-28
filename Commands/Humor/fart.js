@@ -9,9 +9,15 @@ module.exports = {
     dm: true,
     category: 'Humour',
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {Discord.Interaction} message 
+    * @returns 
+    */
     async run(bot, message) {
         // await message.delete();
         // await message.reply(`Hello ${message.author.globalName} ping : \`${bot.ws.ping}\``);
-        await message.reply('https://prout.dev');
+        await message.reply(`[( ͡° ͜ʖ ͡°)](https://prout.dev)`);
     }
 }

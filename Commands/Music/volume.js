@@ -18,6 +18,13 @@ module.exports = {
         },
     ],
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {import('discord.js').Interaction} message 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, message, args) {
         let vol = args.getNumber("volume");
 

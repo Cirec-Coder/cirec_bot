@@ -1,4 +1,6 @@
-const {EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder} = require('discord.js');
+const Discord = require("discord.js");
+
+const { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 
 module.exports = {
 
@@ -19,9 +21,18 @@ module.exports = {
         }
     ],
 
+    /**
+    * 
+    * @param {Discord.Client} bot 
+    * @param {import('discord.js').Interaction} message 
+    * @param {Discord.CommandInteractionOptionResolver} args 
+    * @returns 
+    */
     async run(bot, message, args) {
+        // console.log(args)
         let song = args.getString("musique");
 
+        // try {
         if (!message.member.voice.channel)
             return message.reply("Tu n'es pas en vocal !");
         if (
@@ -31,14 +42,17 @@ module.exports = {
         )
             return message.reply("Nous ne somme pas dans le même salon vocal");
 
+        // } catch (error) {
+
+        // }
         message.deferReply()
 
-        const queue = await bot.player.nodes
-            .create(message.guild, { metadata: { message: message }, volume: bot.volume });
+            const queue = await bot.player.nodes
+                .create(message.guild, { metadata: { message: message }, volume: bot.volume });
 
-        const track = await bot.player
-            .search(song, { requestedBy: message.user })
-            .then((x) => x.tracks[0]);
+            const track = await bot.player
+                .search(song, { requestedBy: message.user })
+                .then((x) => x.tracks[0]);
 
         if (!track) return message.reply("Aucune musique trouvée !");
         if (!queue.connection) await queue.connect(message.member.voice.channel);
@@ -59,27 +73,26 @@ module.exports = {
 
             .setTimestamp()
 
-        await queue.play(track);
+        bot.currentTrack = track;
+
+        await queue.play(track); 
+        ;
+
         if (!queue.node.isPlaying()) {
             const pause = new ButtonBuilder()
                 .setCustomId('pause')
                 .setLabel('Pause')
-                .setStyle(ButtonStyle.Primary);
-
-            const resume = new ButtonBuilder()
-                .setCustomId('resume')
-                .setLabel('Resume')
-                .setStyle(ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Success);
 
             const stop = new ButtonBuilder()
                 .setCustomId('stop')
                 .setLabel('Stop')
-                .setStyle(ButtonStyle.Primary);
+                .setStyle(ButtonStyle.Danger);
 
             const row = new ActionRowBuilder()
-                .addComponents(pause, resume, stop);
+                .addComponents(pause, stop);
             await message.followUp({ embeds: [Embed], components: [row] })
-            //.then((msg) => msg.pin())
+            //.then((msg) => msg.pin()) 
         } else {
 
             const skip = new ButtonBuilder()
