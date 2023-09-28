@@ -6,7 +6,7 @@ module.exports = {
     type: 2,
     directory: 'code/',
     description: `Affiche du code avec coloration la syntaxique`,
-    permission: PermissionFlagsBits.Administrator,
+    permission: 'Aucune',
     dm: true,
     category: 'Code',
         options: [],
