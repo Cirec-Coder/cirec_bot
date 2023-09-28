@@ -5,7 +5,7 @@ module.exports = {
     name: 'mdr',
     directory: 'humor/',
     description: 'Répond avec un gif mdr ',
-    permission: Discord.PermissionFlagsBits.Administrator,
+    permission: 'Aucune',
     dm: false,
     category: 'Humour',
 
