@@ -15,6 +15,7 @@
     "@discordjs/opus": "^0.9.0",
     "@discordjs/rest": "^2.0.1",
     "avconv": "^3.1.0",
+    "chalk": "^5.3.0",
     "discord-canvas-easy": "^3.2.1",
     "discord-player": "^6.6.3",
     "discord.js": "^14.13.0",
@@ -25,13 +26,13 @@
     "mysql": "^2.18.1",
     "ytdl-core": "^4.11.5"
   },
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs"
-    },
-    "exclude": [
-      "node_modules"
-    ],
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs"
+  },
+  "exclude": [
+    "node_modules"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cirec-Coder/cirec_bot.git"

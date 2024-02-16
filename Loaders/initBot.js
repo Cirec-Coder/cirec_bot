@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const {Player} = require('discord-player')
+const { Player } = require('discord-player')
 const loadCommands = require('../Loaders/loadCommands');
 const loadEvents = require('../Loaders/loadEvents');
 const loadPlayerEvents = require('../Loaders/loadPlayerEvents');
@@ -20,7 +20,7 @@ module.exports = async bot => {
             bufferingTimeout: 3000,
         }
     })
-    
+
     bot.volume = 20;
     bot.color = "#ffffff";
 
@@ -39,6 +39,7 @@ module.exports = async bot => {
     bot.player.extractors.register(YouTubeExtractor, SpotifyExtractor);
 
 
+    bot.logger = require('../Modules/logger');
     bot.version = require('../package.json').version;
     // bot.paused = false;
     bot.currentTrack = null;
@@ -47,10 +48,18 @@ module.exports = async bot => {
 
     bot.login(process.env.TOKEN).then(() =>
         console.log(`✅ Robot ${bot.user.tag} chargé avec succès !`)).catch(console.error);
+    // unhandled errors
+    process.on("unhandledRejection", (error) => bot.utils.sendErrorLog(bot, error, "error"));
+
+    process.on("uncaughtExceptionMonitor", (error) => bot.utils.sendErrorLog(bot, error, "error"));
+
+    process.on("warning", (warning) => {
+        bot.utils.sendErrorLog(bot, warning, "warning");
+    });
 
     loadCommands(bot);
     loadEvents(bot);
     loadPlayerEvents(bot);
 
-    return 
+    return
 }

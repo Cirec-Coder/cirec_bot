@@ -59,7 +59,7 @@ module.exports = async bot => {
             type: 2,
         },
     ]
-    const GUILD_ID = "1093245130800111737";//"1150761376747372554" 
+    // const GUILD_ID = "1093245130800111737";//"1150761376747372554" 
     const rest = new REST({ version: "10" }).setToken(bot.token)
 
     await rest.put(Routes.applicationCommands(bot.user.id), {body: commands});

@@ -48,8 +48,114 @@ async function rank(bot, interaction, params) {
 
 }
 
+
+/**
+ * logs error through discord webhook
+ * @param {Discord.Client} bot
+ * @param {Discord.DiscordAPIError|HTTPError|Error|unknown} error
+ * @param {"warning" | "error"} type
+ * @returns {Promise<void>}
+ */
+async function sendErrorLog(bot, error, type) {
+    try {
+      if (error.message?.includes("Missing Access")) return;
+      if (error.message?.includes("Unknown Message")) return;
+      if (error.message?.includes("Unknown interaction")) return;
+  
+      if (
+        error.stack?.includes("TypeError: Cannot read properties of undefined (reading 'messages')")
+      ) {
+        return bot.logger.error("ERR_LOG", error);
+      }
+  
+      const GUILD_ID  = process.env.GUILD_ID;
+      if (!GUILD_ID) return bot.logger.error("ERR_LOG", error?.stack || `${error}`);
+  
+      const channel =
+        bot.channels.cache.get(GUILD_ID) || (await bot.channels.fetch(GUILD_ID));
+  
+      if (!channel || !havePermissions(channel)) {
+        return bot.logger.error("ERR_LOG", error?.stack || `${error}`);
+      }
+  
+      const code = "code" in error ? error.code : "N/A";
+      const httpStatus = "httpStatus" in error ? error.httpStatus : "N/A";
+      const requestData = "requestData" in error ? error.requestData : { json: {} };
+  
+      const name = error.name || "N/A";
+      let stack = error.stack || error;
+      let jsonString = "";
+  
+      try {
+        jsonString = JSON.stringify(requestData.json, null, 2);
+      } catch {
+        jsonString = "";
+      }
+  
+      if (jsonString?.length > 2048) {
+        jsonString = jsonString ? `${jsonString?.slice(0, 2045)}...` : "";
+      }
+  
+      if (typeof stack === "string" && stack.length > 2048) {
+        console.error(stack);
+        stack = "An error occurred but was too long to send to Discord, check your console.";
+      }
+  
+      const embed = new Discord.EmbedBuilder()
+        .setTitle("An error occurred")
+        .addFields(
+          { name: "Name", value: name, inline: true },
+          {
+            name: "Code",
+            value: code.toString(),
+            inline: true,
+          },
+          {
+            name: "httpStatus",
+            value: httpStatus.toString(),
+            inline: true,
+          },
+          {
+            name: "Timestamp",
+            value: bot.logger.now,
+            inline: true,
+          },
+          {
+            name: "Request data",
+            value: Discord.codeBlock(jsonString.slice(0, 2045)),
+            inline: false,
+          }
+        )
+        .setDescription(Discord.codeBlock(stack))
+        .setColor(type === "error" ? Discord.Colors.Red : Discord.Colors.Orange);
+  
+      await channel.send({ embeds: [embed], ephemeral: true });
+    } catch (e) {
+      console.error({ error });
+      console.error(e);
+    }
+  }
+  
+
+/**
+ * check if the bot has the default permissions
+ * @param {Discord.CommandInteraction | Discord.TextChannel} resolveable
+ * @returns {boolean}
+ */
+function havePermissions(resolveable) {
+    const channel = "channel" in resolveable ? resolveable.channel : resolveable;
+    const permissions = channel.permissionsFor(resolveable.guild.members.me);
+    return (
+      permissions?.has(Discord.PermissionsBitField.Flags.ViewChannel) &&
+      permissions?.has(Discord.PermissionsBitField.Flags.SendMessages) &&
+      permissions?.has(Discord.PermissionsBitField.Flags.EmbedLinks)
+    );
+  }
+    
+
 module.exports = {
     createId,
     getRandomColor,
     rank,
+    sendErrorLog,
 }
