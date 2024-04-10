@@ -39,7 +39,7 @@ module.exports = {
             "https://tenor.com/view/bart-simpson-haha-laughing-lol-funny-gif-20417725",
         ]
         // ( ͡° ͜ʖ ͡°) \n 
-        if (!gifNum || gifNum < 0 || gifNum > mdrArray.length) { 
+        if ((gifNum === null || gifNum < 0) || (gifNum > mdrArray.length-1)) { 
             gifNum = Math.floor(Math.random() * mdrArray.length) ;
         }
         await message.reply({ content: `${mdrArray[gifNum]}`, ephemeral: false })
